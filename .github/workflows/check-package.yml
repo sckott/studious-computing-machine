@@ -20,6 +20,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.0.0
+        run: bundle install
 
       - name: View the github context
         run: echo "$GITHUB_CONTEXT"
@@ -27,7 +28,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
      
       - name: Trigger package check
-        run: ruby ./.github/workflows/check_package.rb
+        run: ruby .github/workflows/check_package.rb
         env:
           ISSUE_NUMBER: github.event.issue.number
           ISSUE_BODY: github.event.issue.body 
