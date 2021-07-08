@@ -7,7 +7,7 @@ name: check-package
 jobs:
   check-package:
     runs-on: ubuntu-latest
-    if: startsWith(github.event.issue.number, 'REVDEPCHECK')
+    if: contains(github.event.issue.body, 'Submission type: Stats')
     strategy:
       fail-fast: false
     env:
