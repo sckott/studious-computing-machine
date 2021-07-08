@@ -1,0 +1,28 @@
+on:
+  issues:
+    types: opened
+
+name: check-package
+
+jobs:
+  check-package:
+    runs-on: ubuntu-latest
+    if: startsWith(github.event.issue.number, 'REVDEPCHECK')
+    strategy:
+      fail-fast: false
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v2
+        with:
+          ruby-version: 2.7.2
+
+      - name: View the github context
+        run: echo "$GITHUB_CONTEXT"
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+      
